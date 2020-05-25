@@ -26,7 +26,7 @@ Hardware used:
 
 ## Credits
 ### Time library
-https://github.com/ropg/ezTime/pull/92
+https://github.com/ropg/ezTime/
 
 ### Display library
 https://github.com/MajicDesigns/MD_MAX72XX
