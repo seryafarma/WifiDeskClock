@@ -48,7 +48,9 @@ Timezone amst;
 MD_MAX72XX mx = MD_MAX72XX(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
 
 // We always wait a bit between updates of the display
-#define DELAYTIME 100  // in milliseconds
+#define DELAYTIME 100   // in milliseconds
+#define SLEEPTIME 2000  // in milliseconds
+#define TIMEZONE "Europe/Amsterdam"
 
 void scrollText(const char* p) {
     uint8_t charWidth;
@@ -70,9 +72,7 @@ void scrollText(const char* p) {
     }
 }
 
-void rows()
-// Demonstrates the use of setRow()
-{
+void rows() {
     PRINTS("\nRows 0->7");
     mx.clear();
 
@@ -83,9 +83,7 @@ void rows()
     }
 }
 
-void printTime(String* time)
-// Run through display of the the entire font characters set
-{
+void printTime(String* time) {
     char clockchar[5];
     time->toCharArray(clockchar, 5);
 
@@ -100,7 +98,6 @@ void printTime(String* time)
     mx.setChar(4 * COL_SIZE - 1, clockchar[0]);
 
     mx.update();
-
     mx.update(MD_MAX72XX::ON);
 }
 
@@ -110,25 +107,29 @@ void setup() {
 #if DEBUG
     Serial.begin(57600);
 #endif
-    PRINTS("\n[MD_MAX72XX Test & Demo]");
     WiFi.begin(STASSID, STAPSK);
-
     waitForSync();
 
+#if DEBUG
     Serial.println("UTC: " + UTC.dateTime());
-
-    amst.setLocation("Europe/Amsterdam");
+#endif
+    amst.setLocation(TIMEZONE);
 }
 
 void loop() {
     static unsigned scanline = 0;
+#if DEBUG
     Serial.println("Amsterdam time: " + amst.dateTime("H:i:s"));
+#endif
     String hm = amst.dateTime("Hi");
 
+    // Push the time.
     printTime(&hm);
-    delay(2000);
+    // Just sleep here before doing anything else.
+    delay(DELAYTIME);
     scanline++;
 
+    // Simple animation for this clock, after around 30 seconds do a scanline.
     if (scanline == 15) {
         scanline = 0;
         rows();
