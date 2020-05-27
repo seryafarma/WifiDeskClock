@@ -3,7 +3,7 @@
 #include <ezTime.h>
 
 #ifndef STASSID
-#define STASSID "Insert yuor SSID here."
+#define STASSID "Insert your SSID here."
 #define STAPSK "Insert your pass here."
 #endif
 
@@ -15,8 +15,8 @@ Timezone amst;
 #if DEBUG
 #define PRINT(s, x)         \
     {                       \
-	Serial.print(F(s)); \
-	Serial.print(x);    \
+        Serial.print(F(s)); \
+        Serial.print(x);    \
     }
 #define PRINTS(x) Serial.print(F(x))
 #define PRINTD(x) Serial.println(x, DEC)
@@ -58,15 +58,15 @@ void scrollText(const char* p) {
     mx.clear();
 
     while (*p != '\0') {
-	charWidth = mx.getChar(*p++, sizeof(cBuf) / sizeof(cBuf[0]), cBuf);
+        charWidth = mx.getChar(*p++, sizeof(cBuf) / sizeof(cBuf[0]), cBuf);
 
-	for (uint8_t i = 0; i <= charWidth;
-	     i++)  // allow space between characters
-	{
-	    mx.transform(MD_MAX72XX::TSL);
-	    if (i < charWidth) mx.setColumn(0, cBuf[i]);
-	    delay(DELAYTIME);
-	}
+        for (uint8_t i = 0; i <= charWidth;
+             i++)  // allow space between characters
+        {
+            mx.transform(MD_MAX72XX::TSL);
+            if (i < charWidth) mx.setColumn(0, cBuf[i]);
+            delay(DELAYTIME);
+        }
     }
 }
 
@@ -77,9 +77,9 @@ void rows()
     mx.clear();
 
     for (uint8_t row = 0; row < ROW_SIZE; row++) {
-	mx.setRow(row, 0xff);
-	delay(2 * DELAYTIME);
-	mx.setRow(row, 0x00);
+        mx.setRow(row, 0xff);
+        delay(2 * DELAYTIME);
+        mx.setRow(row, 0x00);
     }
 }
 
@@ -130,8 +130,8 @@ void loop() {
     scanline++;
 
     if (scanline == 15) {
-	scanline = 0;
-	rows();
+        scanline = 0;
+        rows();
     }
 }
 
