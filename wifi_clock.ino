@@ -105,7 +105,7 @@ void setup() {
     mx.begin();
 
 #if DEBUG
-    Serial.begin(57600);
+    Serial.begin(9600);
 #endif
     WiFi.begin(STASSID, STAPSK);
     waitForSync();
